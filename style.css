@@ -717,6 +717,19 @@ body {
     color: black;
 }
 
+/* تأثير الطيران البطيء والسلس مع التقليب (Flip) */
+.flying-card {
+    position: fixed;
+    z-index: 99999;
+    pointer-events: none;
+    border-radius: 12px;
+    object-fit: cover;
+    transform-style: preserve-3d;
+    /* جعل الحركة أبطأ (1.5 ثانية) وسلسة جداً */
+    transition: all 1.5s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 15px 30px rgba(0,0,0,0.4);
+}
+
 .ingredient-tag:hover {
     background: rgba(255, 71, 87, 0.2)!important;
     border-color: #ff4757!important;

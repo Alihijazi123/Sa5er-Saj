@@ -380,3 +380,103 @@ document.addEventListener('click', function(e) {
 
     selectedPaymentMethod = option.getAttribute('data-payment');
 });
+
+
+
+
+function flyItemToCart(imgElement) {
+    if (!imgElement) return;
+
+    // استهداف أيقونة السلة 
+    const cartIcon = document.getElementById('cartIcon') || document.querySelector('.cart-icon') || document.querySelector('.fa-shopping-cart');
+    const cartRect = cartIcon ? cartIcon.getBoundingClientRect() : { left: window.innerWidth - 60, top: 40, width: 30, height: 30 };
+    const imgRect = imgElement.getBoundingClientRect();
+
+    let flyer = document.createElement('img');
+    flyer.src = imgElement.src;
+    flyer.className = 'flying-card';
+    
+    // نقطة البداية (قبل الطيران)
+    flyer.style.left = `${imgRect.left}px`;
+    flyer.style.top = `${imgRect.top}px`;
+    flyer.style.width = `${imgRect.width}px`;
+    flyer.style.height = `${imgRect.height}px`;
+    flyer.style.transform = 'rotateY(0deg) scale(1)';
+    flyer.style.opacity = '1';
+
+    document.body.appendChild(flyer);
+
+    // تنفيذ الحركة والتقليب (Flip) البطيء
+    setTimeout(() => {
+        flyer.style.left = `${cartRect.left + (cartRect.width / 2) - 15}px`;
+        flyer.style.top = `${cartRect.top + (cartRect.height / 2) - 15}px`;
+        flyer.style.width = '30px';
+        flyer.style.height = '30px';
+        
+        // تقليب (برمة كاملة 360 درجة) وتصغير الحجم بشكل ناعم
+        flyer.style.transform = 'rotateY(360deg) scale(0.4)';
+        flyer.style.opacity = '0.6';
+    }, 20);
+
+    // إزالة العنصر بعد انتهاء الحركة (1500 ميلي ثانية = 1.5 ثانية)
+    setTimeout(() => {
+        flyer.remove();
+    }, 1500);
+}
+
+
+
+if (modalAddToCartBtn) {
+    modalAddToCartBtn.addEventListener('click', () => {
+        if (!currentItemData) return;
+        
+        // --- حركة الطيران المباشرة والبسيطة ---
+        if (modalImg) {
+            const imgRect = modalImg.getBoundingClientRect();
+            // بندور على أيقونة السلة أو مكان عرض المجموع
+            const cartTarget = document.querySelector('.cart-icon') || document.querySelector('#cartTotal') || document.body;
+            const targetRect = cartTarget.getBoundingClientRect();
+
+            let flyer = document.createElement('img');
+            flyer.src = modalImg.src;
+            flyer.style.position = 'fixed';
+            flyer.style.zIndex = '99999';
+            flyer.style.left = `${imgRect.left}px`;
+            flyer.style.top = `${imgRect.top}px`;
+            flyer.style.width = `${imgRect.width}px`;
+            flyer.style.height = `${imgRect.height}px`;
+            flyer.style.borderRadius = '12px';
+            flyer.style.objectFit = 'cover';
+            flyer.style.transition = 'all 1.2s cubic-bezier(0.4, 0, 0.2, 1)';
+            flyer.style.transform = 'rotateY(0deg) scale(1)';
+            document.body.appendChild(flyer);
+
+            setTimeout(() => {
+                flyer.style.left = `${targetRect.left + 20}px`;
+                flyer.style.top = `${targetRect.top + 20}px`;
+                flyer.style.width = '30px';
+                flyer.style.height = '30px';
+                flyer.style.transform = 'rotateY(360deg) scale(0.3)';
+                flyer.style.opacity = '0.5';
+            }, 20);
+
+            setTimeout(() => {
+                flyer.remove();
+            }, 1200);
+        }
+        // ------------------------------------
+
+        playPopSound();
+
+        let cartItem = {
+            name: currentItemData.name,
+            price: currentItemData.price,
+            qty: currentModalQty,
+            removed: [...removedIngredients]
+        };
+
+        cart.push(cartItem);
+        updateCartUI();
+        modal.classList.remove('active');
+    });
+}
