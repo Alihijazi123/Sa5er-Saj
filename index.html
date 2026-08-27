@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>صخر صاج - Sa5er Saj Menu</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Tajawal:wght@500;700;800;900&display=swap">
+</head>
+<body>
+
+    <!-- Ultra-Giant Hero Header -->
+    <header class="hero">
+        <div class="logo-wrapper giant">
+            <div class="logo-ring"></div>
+            <img src="./images/photo_2026-08-26_13-21-17.jpg" alt="Sa5er Saj Logo" class="brand-logo giant-logo">
+        </div>
+        <h1 class="brand-name">صخر صاج</h1>
+        <p class="brand-tagline">أطيب سندويشات صاج على أصولها 🌯🔥</p>
+    </header>
+
+    <div class="main-layout">
+        
+        <!-- Menu Content -->
+        <main class="menu-container">
+
+            <!-- Category Filter Tabs -->
+            <div class="category-buttons">
+                <button class="tab-btn active" onclick="filterCategory(event, 'sandwiches')">
+                    <span>سندويشات</span>
+                </button>
+                <button class="tab-btn" onclick="filterCategory(event, 'khafeyef')">
+                    <span>صاج عالخفيف</span>
+                </button>
+                <button class="tab-btn" onclick="filterCategory(event, 'pizza')">
+                    <span>بيزا</span>
+                </button>
+                <button class="tab-btn" onclick="filterCategory(event, 'sweets')">
+                    <span>حلو</span>
+                </button>
+                <button class="tab-btn" onclick="filterCategory(event, 'cold')">
+                    <span>بارد</span>
+                </button>
+            </div>
+            
+            <!-- Items Grid -->
+            <div class="menu-grid">
+                
+                <!-- Sandwiches -->
+                <div class="card glass-card sandwiches" 
+                     data-name="فاهيتا" 
+                     data-price="350" 
+                     data-img="./images/photo_1_2026-08-26_15-50-38.jpg"
+                     data-ingredients="دجاج متبل فاهيتا، فلفل، بصل، فطر، جبنة موزاريلا ، ذرة, شيدر, ميونيز, خس.">
+                    <div class="card-img-wrapper">
+                        <div class="card-img" style="background-image: url('./images/photo_1_2026-08-26_15-50-38.jpg');"></div>
+                    </div>
+                    <div class="card-info">
+                        <h3>فاهيتا</h3>
+                        <div class="price-tag">350,000 L.L</div>
+                        <p class="click-hint"><i class="fa-solid fa-hand-pointer"></i> انقر للتفاصيل والطلب</p>
+                    </div>
+                </div>
+
+                <div class="card glass-card sandwiches" 
+                     data-name="طاووق" 
+                     data-price="300" 
+                     data-img="./images/photo_13_2026-08-26_15-50-38.jpg"
+                     data-ingredients="طاووق ، ميونيز، خس ,كبيس .">
+                    <div class="card-img-wrapper">
+                        <div class="card-img" style="background-image: url('./images/photo_13_2026-08-26_15-50-38.jpg');"></div>
+                    </div>
+                    <div class="card-info">
+                        <h3>طاووق</h3>
+                        <div class="price-tag">300,000 L.L</div>
+                        <p class="click-hint"><i class="fa-solid fa-hand-pointer"></i> انقر للتفاصيل والطلب</p>
+                    </div>
+                </div>
+
+                <div class="card glass-card sandwiches" 
+                     data-name="كفتة" 
+                     data-price="350" 
+                     data-img="./images/photo_14_2026-08-26_15-50-38.jpg"
+                     data-ingredients="بندورة، كبيس، ذرة، ميونيز.">
+                    <div class="card-img-wrapper">
+                        <div class="card-img" style="background-image: url('./images/photo_14_2026-08-26_15-50-38.jpg');"></div>
+                    </div>
+                    <div class="card-info">
+                        <h3>كفتة</h3>
+                        <div class="price-tag">350,000 L.L</div>
+                        <p class="click-hint"><i class="fa-solid fa-hand-pointer"></i> انقر للتفاصيل والطلب</p>
+                    </div>
+                </div>
+
+                <div class="card glass-card sandwiches" 
+                     data-name="سجق و جبنة" 
+                     data-price="300" 
+                     data-img="./images/photo_2_2026-08-26_15-50-38.jpg"
+                     data-ingredients="سجق ، جبنة موزاريلا ، خس ، كبيس , ذرة.">
+                    <div class="card-img-wrapper">
+                        <div class="card-img" style="background-image: url('./images/photo_2_2026-08-26_15-50-38.jpg');"></div>
+                    </div>
+                    <div class="card-info">
+                        <h3>سجق و جبنة</h3>
+                        <div class="price-tag">300,000 L.L</div>
+                        <p class="click-hint"><i class="fa-solid fa-hand-pointer"></i> انقر للتفاصيل والطلب</p>
+                    </div>
+                </div>
+
+                <div class="card glass-card sandwiches" 
+                     data-name="حبش مدخن" 
+                     data-price="350" 
+                     data-img="./images/photo_3_2026-08-26_15-50-38.jpg"
+                     data-ingredients="كبيس , حبش مدخن ، جبنة قشقوان ، خس ، ذرة, مايونيز.">
+                    <div class="card-img-wrapper">
+                        <div class="card-img" style="background-image: url('./images/photo_3_2026-08-26_15-50-38.jpg');"></div>
+                    </div>
+                    <div class="card-info">
+                        <h3>حبش مدخن</h3>
+                        <div class="price-tag">350,000 L.L</div>
+                        <p class="click-hint"><i class="fa-solid fa-hand-pointer"></i> انقر للتفاصيل والطلب</p>
+                    </div>
+                </div>
+
+                <div class="card glass-card sandwiches" 
+                     data-name="حبش و جبنة" 
+                     data-price="250" 
+                     data-img="./images/photo_3_2026-08-26_15-50-38.jpg"
+                     data-ingredients="حبش ، جبنة موزاريلا , مايونيز , زيتون , كبيس.">
+                    <div class="card-img-wrapper">
+                        <div class="card-img" style="background-image: url('./images/photo_3_2026-08-26_15-50-38.jpg');"></div>
+                    </div>
+                    <div class="card-info">
+                        <h3>حبش و جبنة</h3>
+                        <div class="price-tag">250,000 L.L</div>
+                        <p class="click-hint"><i class="fa-solid fa-hand-pointer"></i> انقر للتفاصيل والطلب</p>
+                    </div>
+                </div>
+
+                <div class="card glass-card sandwiches" 
+                     data-name="مرتديلا و جبنة" 
+                     data-price="250" 
+                     data-img="./images/photo_7_2026-08-26_15-50-38.jpg"
+                     data-ingredients="مرتديلا ، جبنة موزاريلا, ذرة, كبيس , ميونيز.">
+                    <div class="card-img-wrapper">
+                        <div class="card-img" style="background-image: url('./images/photo_7_2026-08-26_15-50-38.jpg');"></div>
+                    </div>
+                    <div class="card-info">
+                        <h3>مرتديلا و جبنة</h3>
+                        <div class="price-tag">250,000 L.L</div>
+                        <p class="click-hint"><i class="fa-solid fa-hand-pointer"></i> انقر للتفاصيل والطلب</p>
+                    </div>
+                </div>
+
+                <!-- Khafeyef -->
+                <div class="card glass-card khafeyef hide" 
+                     data-name="عكاوي" 
+                     data-price="200" 
+                     data-img="./images/photo_12_2026-08-26_15-50-38.jpg"
+                     data-ingredients="جبنة عكاوي , بندورة , زيتون , خس.">
+                    <div class="card-img-wrapper">
+                        <div class="card-img" style="background-image: url('./images/photo_12_2026-08-26_15-50-38.jpg');"></div>
+                    </div>
+                    <div class="card-info">
+                        <h3>عكاوي</h3>
+                        <div class="price-tag">200,000 L.L</div>
+                        <p class="click-hint"><i class="fa-solid fa-hand-pointer"></i> انقر للتفاصيل والطلب</p>
+                    </div>
+                </div>
+
+                <div class="card glass-card khafeyef hide" 
+                     data-name="زعتر مع خضرة" 
+                     data-price="100" 
+                     data-img="./images/photo_10_2026-08-26_15-50-38.jpg"
+                     data-ingredients="زعتر ، بندورة ، خيار، وزيتون.">
+                    <div class="card-img-wrapper">
+                        <div class="card-img" style="background-image: url('./images/photo_10_2026-08-26_15-50-38.jpg');"></div>
+                    </div>
+                    <div class="card-info">
+                        <h3>زعتر مع خضرة</h3>
+                        <div class="price-tag">100,000 L.L</div>
+                        <p class="click-hint"><i class="fa-solid fa-hand-pointer"></i> انقر للتفاصيل والطلب</p>
+                    </div>
+                </div>
+
+                <div class="card glass-card khafeyef hide" 
+                     data-name="Old school" 
+                     data-price="130" 
+                     data-img="./images/photo_5_2026-08-26_15-50-38.jpg"
+                     data-ingredients="زعتر , بطاطا خل">
+                    <div class="card-img-wrapper">
+                        <div class="card-img" style="background-image: url('./images/photo_5_2026-08-26_15-50-38.jpg');"></div>
+                    </div>
+                    <div class="card-info">
+                        <h3>Old school</h3>
+                        <div class="price-tag">130,000 L.L</div>
+                        <p class="click-hint"><i class="fa-solid fa-hand-pointer"></i> انقر للتفاصيل والطلب</p>
+                    </div>
+                </div>
+
+                <!-- Pizza -->
+                <div class="card glass-card pizza hide" 
+                     data-name="بيزا خضرة" 
+                     data-price="300" 
+                     data-img="./images/photo_9_2026-08-26_15-50-38.jpg"
+                     data-ingredients="فلفل ، فطر، زيتون أسود، ذرة، وجبنة موزاريلا.">
+                    <div class="card-img-wrapper">
+                        <div class="card-img" style="background-image: url('./images/photo_9_2026-08-26_15-50-38.jpg');"></div>
+                    </div>
+                    <div class="card-info">
+                        <h3>بيزا خضرة</h3>
+                        <div class="price-tag">300,000 L.L</div>
+                        <p class="click-hint"><i class="fa-solid fa-hand-pointer"></i> انقر للتفاصيل والطلب</p>
+                    </div>
+                </div>
+
+                <div class="card glass-card pizza hide" 
+                     data-name="بيزا مرتديلا" 
+                     data-price="350" 
+                     data-img="./images/photo_4_2026-08-26_15-50-38.jpg"
+                     data-ingredients="مرتديلا، فطر، وزيتون مع جبنة الموزاريلا , فلفل, ذرة.">
+                    <div class="card-img-wrapper">
+                        <div class="card-img" style="background-image: url('./images/photo_4_2026-08-26_15-50-38.jpg');"></div>
+                    </div>
+                    <div class="card-info">
+                        <h3>بيزا مرتديلا</h3>
+                        <div class="price-tag">350,000 L.L</div>
+                        <p class="click-hint"><i class="fa-solid fa-hand-pointer"></i> انقر للتفاصيل والطلب</p>
+                    </div>
+                </div>
+
+                <div class="card glass-card pizza hide" 
+                     data-name="بيزا حبش" 
+                     data-price="350" 
+                     data-img="./images/photo_8_2026-08-26_15-50-38.jpg"
+                     data-ingredients="فلفل، حبش، ذرة، فطر، جبنة موزاريلا, زيتون">
+                    <div class="card-img-wrapper">
+                        <div class="card-img" style="background-image: url('./images/photo_8_2026-08-26_15-50-38.jpg');"></div>
+                    </div>
+                    <div class="card-info">
+                        <h3>بيزا حبش</h3>
+                        <div class="price-tag">350,000 L.L</div>
+                        <p class="click-hint"><i class="fa-solid fa-hand-pointer"></i> انقر للتفاصيل والطلب</p>
+                    </div>
+                </div>
+
+                <div class="card glass-card pizza hide" 
+                     data-name="بيزا سجق" 
+                     data-price="400" 
+                     data-img="./images/photo_11_2026-08-26_15-50-38.jpg"
+                     data-ingredients="سجق ، فلفل ، جبنة موزاريلا ,ذرة, زيتون">
+                    <div class="card-img-wrapper">
+                        <div class="card-img" style="background-image: url('./images/photo_11_2026-08-26_15-50-38.jpg');"></div>
+                    </div>
+                    <div class="card-info">
+                        <h3>بيزا سجق</h3>
+                        <div class="price-tag">400,000 L.L</div>
+                        <p class="click-hint"><i class="fa-solid fa-hand-pointer"></i> انقر للتفاصيل والطلب</p>
+                    </div>
+                </div>
+
+                <div class="card glass-card pizza hide" 
+                     data-name="بيزا مدخن" 
+                     data-price="400" 
+                     data-img="./images/photo_8_2026-08-26_15-50-38.jpg"
+                     data-ingredients="مدخن , فلفل , زيتون ,ذرة,جبنة موزاريلا .">
+                    <div class="card-img-wrapper">
+                        <div class="card-img" style="background-image: url('./images/photo_8_2026-08-26_15-50-38.jpg');"></div>
+                    </div>
+                    <div class="card-info">
+                        <h3>بيزا مدخن</h3>
+                        <div class="price-tag">400,000 L.L</div>
+                        <p class="click-hint"><i class="fa-solid fa-hand-pointer"></i> انقر للتفاصيل والطلب</p>
+                    </div>
+                </div>
+
+                <!-- Sweets -->
+                <div class="card glass-card sweets hide" 
+                     data-name="Nutella" 
+                     data-price="200" 
+                     data-img="./images/photo_15_2026-08-26_15-50-38.jpg"
+                     data-ingredients="Nutella">
+                    <div class="card-img-wrapper">
+                        <div class="card-img" style="background-image: url('./images/photo_15_2026-08-26_15-50-38.jpg');"></div>
+                    </div>
+                    <div class="card-info">
+                        <h3>Nutella</h3>
+                        <div class="price-tag">200,000 L.L</div>
+                        <p class="click-hint"><i class="fa-solid fa-hand-pointer"></i> انقر للتفاصيل والطلب</p>
+                    </div>
+                </div>
+
+                <!-- Cold Drinks Category -->
+                <div class="card glass-card cold hide" 
+                     data-name="بيبسي" 
+                     data-price="60" 
+                     data-img="https://images.unsplash.com/photo-1629203851122-3726ecdf080e?auto=format&fit=crop&q=80&w=600"
+                     data-ingredients="علبة بيبسي منعشة مثلجة (Pepsi Can 330ml).">
+                    <div class="card-img-wrapper">
+                        <div class="card-img" style="background-image: url('https://images.unsplash.com/photo-1629203851122-3726ecdf080e?auto=format&fit=crop&q=80&w=600');"></div>
+                    </div>
+                    <div class="card-info">
+                        <h3>بيبسي (Pepsi)</h3>
+                        <div class="price-tag">70,000 L.L</div>
+                        <p class="click-hint"><i class="fa-solid fa-hand-pointer"></i> انقر للتفاصيل والطلب</p>
+                    </div>
+                </div>
+<!-- ميرندا -->
+<div class="card glass-card cold hide"
+     data-name="ميرندا" 
+     data-price="60" 
+     data-img="./images/MIRINDA SOFT DRINK 330ML_1.jpg"
+     data-ingredients="ميرندا منعشة مثلجة">
+    <div class="card-img-wrapper">
+        <div class="card-img" style="background-image: url('./images/MIRINDA SOFT DRINK 330ML_1.jpg');"></div>
+    </div>
+    <div class="card-info">
+        <h3>ميرندا (Mirinda)</h3>
+        <div class="price-tag">70,000 L.L</div>
+        <p class="click-hint"><i class="fa-solid fa-hand-pointer"></i> انقر للتفاصيل والطلب</p>
+    </div>
+</div>
+
+<!-- سفن اب -->
+<div class="card glass-card cold hide" 
+     data-name="سفن اب" 
+     data-price="60" 
+     data-img="./images/OIP.webp"
+     data-ingredients="سفن اب مثلج">
+    <div class="card-img-wrapper">
+        <div class="card-img" style="background-image: url('./images/OIP.webp');"></div>
+    </div>
+    <div class="card-info">
+        <h3>سفن اب (7Up)</h3>
+        <div class="price-tag">70,000 L.L</div>
+        <p class="click-hint"><i class="fa-solid fa-hand-pointer"></i> انقر للتفاصيل والطلب</p>
+    </div>
+</div>
+
+<!-- قنينة ماء -->
+<div class="card glass-card cold hide" 
+     data-name="مياه معدنية" 
+     data-price="30" 
+     data-img="./images/OIP (1).webp"
+     data-ingredients="قنينة مياه معدنية نقية">
+    <div class="card-img-wrapper">
+        <div class="card-img" style="background-image: url('./images/OIP (1).webp');"></div>
+    </div>
+    <div class="card-info">
+        <h3>قنينة ماء</h3>
+        <div class="price-tag">30,000 L.L</div>
+        <p class="click-hint"><i class="fa-solid fa-hand-pointer"></i> انقر للتفاصيل والطلب</p>
+    </div>
+</div>
+
+<!-- بونجوس هرم -->
+<div class="card glass-card cold hide" 
+     data-name="بونجوس هرم" 
+     data-price="30" 
+     data-img="./images/FB_IMG_1553080175935.jpg"
+     data-ingredients="عصير بونجوس هرم طيب ومنعش">
+    <div class="card-img-wrapper">
+        <div class="card-img" style="background-image: url('./images/FB_IMG_1553080175935.jpg');"></div>
+    </div>
+    <div class="card-info">
+        <h3>بونجوس هرم</h3>
+        <div class="price-tag">30,000 L.L</div>
+        <p class="click-hint"><i class="fa-solid fa-hand-pointer"></i> انقر للتفاصيل والطلب</p>
+    </div>
+</div>
+        </main>
+
+        <!-- Sidebar (Cart, Timer & Contact) -->
+        <aside class="sidebar">
+            
+            <!-- Delivery Timer -->
+            <div class="timer-card glass-sidebar" style="text-align: center; margin-bottom: 20px; padding: 15px;">
+                <h3><i class="fa-solid fa-person-biking"></i> وقت التوصيل للبيت</h3>
+                <div id="countdownTimer" style="font-size: 1.6rem; font-weight: bold; margin-top: 10px; color: #ff4757;" dir="ltr">
+                    20:00
+                </div>
+                <p style="font-size: 0.85rem; margin-top: 5px; opacity: 0.8;">وصول الطلب خلال 20 دقيقة 🛵🏠</p>
+            </div>
+
+            <!-- Order Type Selection -->
+            <div class="order-type-card glass-sidebar" style="margin-bottom: 20px; padding: 15px;">
+                <h3><i class="fa-solid fa-store"></i> طريـقة الاستلام</h3>
+                <div class="order-type-options" style="display: flex; gap: 10px; margin-top: 10px;">
+                    <label class="type-option active" style="flex: 1; text-align: center; padding: 8px; border: 2px solid #ff4757; border-radius: 8px; cursor: pointer; font-weight: bold;">
+                        <input type="radio" name="orderType" value="توصيل دليفري (Delivery)" checked style="display: none;"> دليفري 🛵
+                    </label>
+                    <label class="type-option" style="flex: 1; text-align: center; padding: 8px; border: 2px solid rgba(255,255,255,0.2); border-radius: 8px; cursor: pointer; font-weight: bold;">
+                        <input type="radio" name="orderType" value="استلام من المحل (Pickup)" style="display: none;"> من المحل 🏬
+                    </label>
+                </div>
+            </div>
+
+            <!-- Customer Details Inputs -->
+            <div class="customer-info-card glass-sidebar" style="margin-bottom: 20px; padding: 15px;">
+                <h3><i class="fa-solid fa-user-pen"></i> معلومات الزبون</h3>
+                <div style="margin-top: 12px; display: flex; flex-direction: column; gap: 10px;">
+                    <input type="text" id="customerName" placeholder="الاسم الكريم..." style="width: 100%; padding: 10px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.3); background: rgba(0,0,0,0.2); color: #fff; font-family: 'Tajawal', sans-serif;">
+                    <input type="text" id="customerAddress" placeholder="عنوان التوصيل (المنطقة، الشارع، المبنى)..." style="width: 100%; padding: 10px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.3); background: rgba(0,0,0,0.2); color: #fff; font-family: 'Tajawal', sans-serif;">
+                </div>
+            </div>
+
+            <div class="cart-card glass-sidebar">
+                <h2><i class="fa-solid fa-basket-shopping"></i> سلة الطلبات</h2>
+                <div id="cartItems" class="cart-items">
+                    <p class="empty-msg">لم تقم بإضافة أي وجبة بعد</p>
+                </div>
+                <!-- قسم خيارات الدفع المرتبة -->
+<div class="checkout-section" style="margin-bottom: 15px; text-align: right;">
+    <h3 class="section-title" style="font-size: 0.95rem; color: #f39c12; margin-bottom: 8px; font-weight: bold;">
+        <i class="fa-solid fa-wallet"></i> طريقة الدفع
+    </h3>
+    <div class="payment-type-options" style="display: flex; gap: 10px;">
+        
+        <!-- زر الكاش (أخضر) -->
+        <label class="type-option cash-option active" style="flex: 1; display: flex; align-items: center; justify-content: center; gap: 6px; padding: 10px; background: rgba(255, 255, 255, 0.05); border: 2px solid rgba(255, 255, 255, 0.1); border-radius: 8px; color: #fff; cursor: pointer; transition: all 0.3s ease; font-weight: bold; font-size: 0.85rem;">
+            <input type="radio" name="paymentType" value="Cash 💵" checked style="display: none;">
+            <span>Cash 💵</span>
+        </label>
+
+        <!-- زر الويش موني (أحمر) -->
+        <label class="type-option wish-option" style="flex: 1; display: flex; align-items: center; justify-content: center; gap: 6px; padding: 10px; background: rgba(255, 255, 255, 0.05); border: 2px solid rgba(255, 255, 255, 0.1); border-radius: 8px; color: #fff; cursor: pointer; transition: all 0.3s ease; font-weight: bold; font-size: 0.85rem;">
+            <input type="radio" name="paymentType" value="Wish Money 💳" style="display: none;">
+            <span>Wish Money 💳</span>
+        </label>
+
+    </div>
+</div>
+                <div class="cart-total">
+                    <span>المجموع الكلي:</span>
+                    <strong id="totalPrice">0 L.L</strong>
+                </div>
+                <button id="sendOrderBtn" class="send-order-btn" disabled>
+                    <i class="fa-brands fa-whatsapp"></i> إرسال الطلب عبر الواتساب
+                </button>
+            </div>
+
+            <div class="contact-card glass-sidebar">
+                <h2>الطلب السريع</h2>
+                <a href="https://wa.me/96181046949" class="whatsapp-btn" target="_blank">
+                    <i class="fa-brands fa-whatsapp"></i>
+                    <div class="btn-text">
+                        <span>تواصل معنا مباشرة</span>
+                        <span class="phone-num" dir="ltr">+961 81 046 949</span>
+                    </div>
+                </a>
+            </div>
+        </aside>
+        
+    </div>
+
+    <!-- Modal Popup Details Card with Customization (Remove Ingredients) -->
+    <div id="itemModal" class="modal-overlay">
+        <div class="modal-card glass-modal">
+            <button class="close-modal-btn" id="closeModal">&times;</button>
+            <div class="modal-img-container">
+                <img id="modalImg" src="" alt="Item Image">
+            </div>
+            <div class="modal-details">
+                <h2 id="modalTitle">اسم الوجبة</h2>
+                <span id="modalPrice" class="modal-price-tag">0 L.L</span>
+                
+                <div class="ingredients-box">
+                    <h4><i class="fa-solid fa-utensils"></i> المكونات (انقر على المكون لإزالته):</h4>
+                    <div id="modalIngredientsTags" class="ingredients-tags-container" style="display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px;">
+                        <!-- يتم تعبئتها ديناميكياً عبر الجافاسكريبت -->
+                    </div>
+                </div>
+                 <div class="payment-type-options">
+ 
+                <div class="modal-action-row" style="margin-top: 20px;">
+                    <div class="quantity-controls big-controls">
+                        <button class="btn-qty modal-minus"><i class="fa-solid fa-minus"></i></button>
+                        <span id="modalQty" class="item-qty">1</span>
+                        <button class="btn-qty modal-plus"><i class="fa-solid fa-plus"></i></button>
+                    </div>
+                    <button id="modalAddToCartBtn" class="add-to-cart-btn">
+                        <i class="fa-solid fa-cart-plus"></i> إضافـة للطلـب
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
