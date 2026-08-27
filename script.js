@@ -1,24 +1,31 @@
 // ==========================================
-// 1. مولد الأصوات التفاعلية (Web Audio API)
+// 1. مولد الأصوات التفاعلية (مُحسن وخفيف)
 // ==========================================
+let sharedAudioCtx = null;
+
 function playPopSound() {
     try {
-        const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-        const oscillator = audioCtx.createOscillator();
-        const gainNode = audioCtx.createGain();
+        if (!sharedAudioCtx) {
+            sharedAudioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        }
+        if (sharedAudioCtx.state === 'suspended') {
+            sharedAudioCtx.resume();
+        }
+        const oscillator = sharedAudioCtx.createOscillator();
+        const gainNode = sharedAudioCtx.createGain();
         
         oscillator.type = 'sine';
-        oscillator.frequency.setValueAtTime(400, audioCtx.currentTime);
-        oscillator.frequency.exponentialRampToValueAtTime(800, audioCtx.currentTime + 0.1);
+        oscillator.frequency.setValueAtTime(400, sharedAudioCtx.currentTime);
+        oscillator.frequency.exponentialRampToValueAtTime(800, sharedAudioCtx.currentTime + 0.1);
         
-        gainNode.gain.setValueAtTime(0.15, audioCtx.currentTime);
-        gainNode.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.1);
+        gainNode.gain.setValueAtTime(0.1, sharedAudioCtx.currentTime);
+        gainNode.gain.exponentialRampToValueAtTime(0.01, sharedAudioCtx.currentTime + 0.1);
         
         oscillator.connect(gainNode);
-        gainNode.connect(audioCtx.destination);
+        gainNode.connect(sharedAudioCtx.destination);
         
         oscillator.start();
-        oscillator.stop(audioCtx.currentTime + 0.1);
+        oscillator.stop(sharedAudioCtx.currentTime + 0.1);
     } catch (e) {}
 }
 
@@ -38,8 +45,8 @@ function triggerConfetti() {
 
 function runConfettiAnimation() {
     confetti({
-        particleCount: 100,
-        spread: 70,
+        particleCount: 60, // خفضنا العدد لحماية أداء الموبايل
+        spread: 60,
         origin: { y: 0.6 },
         colors: ['#f39c12', '#e74c3c', '#f1c40f', '#ffffff']
     });
@@ -155,10 +162,43 @@ if (modalMinus) {
     });
 }
 
-// إضافة الوجبة للسلة مع ملاحظات الإزالة
+// --- إضافة الوجبة للسلة (مع تأثير خفيف وخالٍ من الـ Lag) ---
 if (modalAddToCartBtn) {
     modalAddToCartBtn.addEventListener('click', () => {
         if (!currentItemData) return;
+        
+        // تأثير طيران مبسط وخفيف جداً لا يسبب تقطيعاً على الهواتف
+        if (modalImg) {
+            const imgRect = modalImg.getBoundingClientRect();
+            const cartTarget = document.querySelector('.cart-icon') || document.querySelector('#cartTotal') || document.body;
+            const targetRect = cartTarget.getBoundingClientRect();
+
+            let flyer = document.createElement('img');
+            flyer.src = modalImg.src;
+            flyer.style.cssText = `
+                position: fixed;
+                z-index: 99999;
+                left: ${imgRect.left}px;
+                top: ${imgRect.top}px;
+                width: ${imgRect.width}px;
+                height: ${imgRect.height}px;
+                border-radius: 12px;
+                object-fit: cover;
+                transition: transform 0.6s ease, opacity 0.6s ease;
+                pointer-events: none;
+            `;
+            document.body.appendChild(flyer);
+
+            requestAnimationFrame(() => {
+                flyer.style.transform = `translate(${targetRect.left - imgRect.left}px, ${targetRect.top - imgRect.top}px) scale(0.2)`;
+                flyer.style.opacity = '0.3';
+            });
+
+            setTimeout(() => {
+                flyer.remove();
+            }, 600);
+        }
+
         playPopSound();
 
         let cartItem = {
@@ -174,7 +214,7 @@ if (modalAddToCartBtn) {
     });
 }
 
-// تحديث واجهة السلة (مع إضافة رسم التوصيل 100 ألف تلقائياً عند اختيار دليفري)
+// تحديث واجهة السلة
 function updateCartUI() {
     const cartItemsContainer = document.getElementById('cartItems');
     const totalPriceEl = document.getElementById('totalPrice');
@@ -209,13 +249,12 @@ function updateCartUI() {
         `;
     });
 
-    // التحقق من طريقة الاستلام (إذا كان دليفري أضف 100 ألف)
     const orderTypeEl = document.querySelector('input[name="orderType"]:checked');
     const orderTypeValue = orderTypeEl ? orderTypeEl.value : "";
     const isDelivery = orderTypeValue.includes('دليفري') || orderTypeValue.includes('توصيل');
 
     if (isDelivery) {
-        total += 100; // 100 ألف رسم توصيل
+        total += 100;
         html += `
             <div class="cart-item delivery-fee-row" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 8px; color: #f39c12;">
                 <div>
@@ -236,7 +275,7 @@ function removeFromCart(index) {
     updateCartUI();
 }
 
-// التحكم بتفعيل أزرار طريقة الاستلام وتحديث السلة فوراً
+// التحكم بتفعيل أزرار طريقة الاستلام
 document.querySelectorAll('.order-type-options .type-option, input[name="orderType"]').forEach(element => {
     element.addEventListener('click', () => {
         document.querySelectorAll('.order-type-options .type-option').forEach(l => l.classList.remove('active'));
@@ -252,7 +291,7 @@ document.querySelectorAll('.order-type-options .type-option, input[name="orderTy
     });
 });
 
-// التحكم بتفعيل خيارات الدفع (Cash / Wish Money)
+// التحكم بتفعيل خيارات الدفع
 document.querySelectorAll('.payment-type-options .type-option, input[name="paymentType"]').forEach(element => {
     element.addEventListener('click', () => {
         document.querySelectorAll('.payment-type-options .type-option').forEach(l => l.classList.remove('active'));
@@ -267,7 +306,7 @@ document.querySelectorAll('.payment-type-options .type-option, input[name="payme
     });
 });
 
-// --- عداد التوصيل العكسي (20 دقيقة) - يبدأ فقط عند الطلب ---
+// --- عداد التوصيل العكسي (20 دقيقة) ---
 let timeRemaining = 20 * 60;
 let countdownInterval = null;
 const countdownTimer = document.getElementById('countdownTimer');
@@ -291,7 +330,7 @@ function startCountdown() {
     }
 }
 
-// --- إرسال الطلب عبر الواتساب وتشغيل العداد عند الإرسال ---
+// --- إرسال الطلب عبر الواتساب ---
 const sendOrderBtn = document.getElementById('sendOrderBtn');
 if (sendOrderBtn) {
     sendOrderBtn.addEventListener('click', function() {
@@ -313,7 +352,6 @@ if (sendOrderBtn) {
         const orderType = orderTypeEl ? orderTypeEl.value : "توصيل دليفري";
         const isDelivery = orderType.includes('دليفري') || orderType.includes('توصيل');
 
-        // جلب طريقة الدفع المختارة
         const paymentTypeEl = document.querySelector('input[name="paymentType"]:checked');
         const paymentType = paymentTypeEl ? paymentTypeEl.value : "Cash";
 
@@ -331,7 +369,6 @@ if (sendOrderBtn) {
             }
         });
 
-        // إضافة رسم التوصيل للرسالة إذا كان الخيار دليفري
         if (isDelivery) {
             calculatedTotal += 100;
             cartDetails += `• 🛵 رسم التوصيل - 100,000 L.L%0A`;
@@ -347,7 +384,6 @@ if (sendOrderBtn) {
         message += `------------------%0A`;
         message += `💰 *المجموع الكلي:* ${calculatedTotal.toLocaleString()},000 L.L%0A`;
 
-        // تشغيل تأثيرات الاحتفال، الأصوات، وبدء العداد التنازلي
         triggerConfetti();
         playPopSound();
         startCountdown();
@@ -363,120 +399,5 @@ if (sendOrderBtn) {
             anchor.click();
             document.body.removeChild(anchor);
         }, 400);
-    });
-}
-
-// متغير لتخزين طريقة الدفع الحالية
-let selectedPaymentMethod = "Cash 💵";
-
-document.addEventListener('click', function(e) {
-    const option = e.target.closest('.payment-type-options .type-option');
-    if (!option) return;
-
-    document.querySelectorAll('.payment-type-options .type-option').forEach(opt => {
-        opt.classList.remove('active');
-    });
-    option.classList.add('active');
-
-    selectedPaymentMethod = option.getAttribute('data-payment');
-});
-
-
-
-
-function flyItemToCart(imgElement) {
-    if (!imgElement) return;
-
-    // استهداف أيقونة السلة 
-    const cartIcon = document.getElementById('cartIcon') || document.querySelector('.cart-icon') || document.querySelector('.fa-shopping-cart');
-    const cartRect = cartIcon ? cartIcon.getBoundingClientRect() : { left: window.innerWidth - 60, top: 40, width: 30, height: 30 };
-    const imgRect = imgElement.getBoundingClientRect();
-
-    let flyer = document.createElement('img');
-    flyer.src = imgElement.src;
-    flyer.className = 'flying-card';
-    
-    // نقطة البداية (قبل الطيران)
-    flyer.style.left = `${imgRect.left}px`;
-    flyer.style.top = `${imgRect.top}px`;
-    flyer.style.width = `${imgRect.width}px`;
-    flyer.style.height = `${imgRect.height}px`;
-    flyer.style.transform = 'rotateY(0deg) scale(1)';
-    flyer.style.opacity = '1';
-
-    document.body.appendChild(flyer);
-
-    // تنفيذ الحركة والتقليب (Flip) البطيء
-    setTimeout(() => {
-        flyer.style.left = `${cartRect.left + (cartRect.width / 2) - 15}px`;
-        flyer.style.top = `${cartRect.top + (cartRect.height / 2) - 15}px`;
-        flyer.style.width = '30px';
-        flyer.style.height = '30px';
-        
-        // تقليب (برمة كاملة 360 درجة) وتصغير الحجم بشكل ناعم
-        flyer.style.transform = 'rotateY(360deg) scale(0.4)';
-        flyer.style.opacity = '0.6';
-    }, 20);
-
-    // إزالة العنصر بعد انتهاء الحركة (1500 ميلي ثانية = 1.5 ثانية)
-    setTimeout(() => {
-        flyer.remove();
-    }, 1500);
-}
-
-
-
-if (modalAddToCartBtn) {
-    modalAddToCartBtn.addEventListener('click', () => {
-        if (!currentItemData) return;
-        
-        // --- حركة الطيران المباشرة والبسيطة ---
-        if (modalImg) {
-            const imgRect = modalImg.getBoundingClientRect();
-            // بندور على أيقونة السلة أو مكان عرض المجموع
-            const cartTarget = document.querySelector('.cart-icon') || document.querySelector('#cartTotal') || document.body;
-            const targetRect = cartTarget.getBoundingClientRect();
-
-            let flyer = document.createElement('img');
-            flyer.src = modalImg.src;
-            flyer.style.position = 'fixed';
-            flyer.style.zIndex = '99999';
-            flyer.style.left = `${imgRect.left}px`;
-            flyer.style.top = `${imgRect.top}px`;
-            flyer.style.width = `${imgRect.width}px`;
-            flyer.style.height = `${imgRect.height}px`;
-            flyer.style.borderRadius = '12px';
-            flyer.style.objectFit = 'cover';
-            flyer.style.transition = 'all 1.2s cubic-bezier(0.4, 0, 0.2, 1)';
-            flyer.style.transform = 'rotateY(0deg) scale(1)';
-            document.body.appendChild(flyer);
-
-            setTimeout(() => {
-                flyer.style.left = `${targetRect.left + 20}px`;
-                flyer.style.top = `${targetRect.top + 20}px`;
-                flyer.style.width = '30px';
-                flyer.style.height = '30px';
-                flyer.style.transform = 'rotateY(360deg) scale(0.3)';
-                flyer.style.opacity = '0.5';
-            }, 20);
-
-            setTimeout(() => {
-                flyer.remove();
-            }, 1200);
-        }
-        // ------------------------------------
-
-        playPopSound();
-
-        let cartItem = {
-            name: currentItemData.name,
-            price: currentItemData.price,
-            qty: currentModalQty,
-            removed: [...removedIngredients]
-        };
-
-        cart.push(cartItem);
-        updateCartUI();
-        modal.classList.remove('active');
     });
 }
