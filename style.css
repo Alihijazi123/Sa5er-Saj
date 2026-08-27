@@ -734,10 +734,10 @@ body {
 .order-type-options .type-option.active {
     background: rgba(255, 71, 87, 0.2)!important;
     border-color: #ff4757!important;
-    color: #fff;
+    color: #2D3436 !important;
 }
 .order-type-options .type-option {
-    color: #ddd;
+    color: #2D3436;
     transition: all 0.3s ease;
 }
 
@@ -770,11 +770,11 @@ body {
     background: rgba(255, 255, 255, 0.08);
     border: 2px solid rgba(255, 255, 255, 0.15);
     border-radius: 8px;
-    color: #fff;
+    color: #E74C3C !important;
     cursor: pointer;
     transition: all 0.3s ease;
     font-weight: bold;
-    font-size: 0.9rem;
+    font-size: 1rem;
     user-select: none;
 }
 

@@ -267,24 +267,31 @@ document.querySelectorAll('.payment-type-options .type-option, input[name="payme
     });
 });
 
-// --- عداد التوصيل العكسي (20 دقيقة) ---
+// --- عداد التوصيل العكسي (20 دقيقة) - يبدأ فقط عند الطلب ---
 let timeRemaining = 20 * 60;
+let countdownInterval = null;
 const countdownTimer = document.getElementById('countdownTimer');
 
-if (countdownTimer) {
-    setInterval(() => {
-        if (timeRemaining > 0) {
-            timeRemaining--;
-            let minutes = Math.floor(timeRemaining / 60);
-            let seconds = timeRemaining % 60;
-            countdownTimer.textContent = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
-        } else {
-            countdownTimer.textContent = "وصل الطلب للبيت! 🛵🔥";
-        }
-    }, 1000);
+function startCountdown() {
+    if (countdownInterval) clearInterval(countdownInterval);
+    timeRemaining = 20 * 60;
+    
+    if (countdownTimer) {
+        countdownInterval = setInterval(() => {
+            if (timeRemaining > 0) {
+                timeRemaining--;
+                let minutes = Math.floor(timeRemaining / 60);
+                let seconds = timeRemaining % 60;
+                countdownTimer.textContent = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+            } else {
+                countdownTimer.textContent = "وصل الطلب للبيت! 🛵🔥";
+                clearInterval(countdownInterval);
+            }
+        }, 1000);
+    }
 }
 
-// --- إرسال الطلب عبر الواتساب (مع الاسم، العنوان، طريقة الاستلام، طريقة الدفع وتفاصيل الحساب) ---
+// --- إرسال الطلب عبر الواتساب وتشغيل العداد عند الإرسال ---
 const sendOrderBtn = document.getElementById('sendOrderBtn');
 if (sendOrderBtn) {
     sendOrderBtn.addEventListener('click', function() {
@@ -340,9 +347,10 @@ if (sendOrderBtn) {
         message += `------------------%0A`;
         message += `💰 *المجموع الكلي:* ${calculatedTotal.toLocaleString()},000 L.L%0A`;
 
-        // تشغيل تأثيرات الاحتفال والأصوات
+        // تشغيل تأثيرات الاحتفال، الأصوات، وبدء العداد التنازلي
         triggerConfetti();
         playPopSound();
+        startCountdown();
 
         const phoneNumber = "96181046949";
         const whatsappUrl = `https://api.whatsapp.com/send?phone=${phoneNumber}&text=${message}`;
@@ -358,12 +366,6 @@ if (sendOrderBtn) {
     });
 }
 
-
-
-
-
-
-
 // متغير لتخزين طريقة الدفع الحالية
 let selectedPaymentMethod = "Cash 💵";
 
@@ -371,14 +373,10 @@ document.addEventListener('click', function(e) {
     const option = e.target.closest('.payment-type-options .type-option');
     if (!option) return;
 
-    // إزالة الـ active من الكل وإضافتها للكبسناه
     document.querySelectorAll('.payment-type-options .type-option').forEach(opt => {
         opt.classList.remove('active');
     });
     option.classList.add('active');
 
-    // حفظ الطريقة المختارة
     selectedPaymentMethod = option.getAttribute('data-payment');
 });
-
-
