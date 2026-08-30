@@ -7,11 +7,94 @@
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Tajawal:wght@500;700;800;900&display=swap">
+    <style>
+        .menu-dropdown-container {
+            position: relative;
+        }
+        
+        .menu-dropdown-btn {
+            background: transparent;
+            border: none;
+            color: #f39c12;
+            cursor: pointer;
+            font-size: 2.5rem;
+            padding: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.3s ease, color 0.3s ease;
+        }
+
+        .menu-dropdown-btn:hover {
+            color: green;
+            transform: scale(1.1);
+        }
+
+        .dropdown-content {
+            position: absolute;
+            left: 0;
+            top: 140%;
+            background: rgba(15, 15, 15, 0.4);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            min-width: 180px;
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+            display: flex;
+            flex-direction: column;
+            padding: 8px 0;
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-10px);
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .dropdown-content.show {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .dropdown-content a {
+            color: white;
+            padding: 10px 16px;
+            text-decoration: none;
+            font-size: 1rem;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-family: 'Tajawal', sans-serif;
+            background: transparent;
+        }
+
+        .dropdown-content a:hover {
+            background: rgba(255, 71, 87, 0.2);
+            color: black;
+            padding-right: 20px;
+        }
+    </style>
 </head>
 <body>
 
     <!-- Ultra-Giant Hero Header -->
     <header class="hero">
+        <div style="position: absolute; top: 20px; left: 20px; z-index: 100;">
+            <div class="menu-dropdown-container">
+                <button class="menu-dropdown-btn" id="menuDropdownBtn">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <div class="dropdown-content" id="dropdownMenu">
+                    <a href="#"><i class="fas fa-home"></i> الرئيسية</a>
+                    <a href="#courses"><i class="fas fa-utensils"></i> قائمة الطعام</a>
+                    <a href="#dashboard"><i class="fas fa-chart-pie"></i> لوحة الطلبات</a>
+                    <a href="#contact"><i class="fab fa-whatsapp"></i> تواصل معنا</a>
+                </div>
+            </div>
+        </div>
+
         <div class="logo-wrapper giant">
             <div class="logo-ring"></div>
             <img src="./images/photo_2026-08-26_13-21-17.jpg" alt="Sa5er Saj Logo" class="brand-logo giant-logo">
@@ -45,7 +128,7 @@
             </div>
             
             <!-- Items Grid -->
-            <div class="menu-grid">
+            <div class="menu-grid" id="courses">
                 
                 <!-- Sandwiches -->
                 <div class="card glass-card sandwiches" 
@@ -170,8 +253,8 @@
                 </div>
 
                  <div class="card glass-card khafeyef hide" 
-                     data-name = "كشك " 
-                     data-price="100" 
+                     data-name="كشك" 
+                     data-price="150" 
                      data-img="./images/keshek.jpg.jpeg"
                      data-ingredients="كشك ، بندورة ،بصل،">
                     <div class="card-img-wrapper">
@@ -183,6 +266,7 @@
                         <p class="click-hint"><i class="fa-solid fa-hand-pointer"></i> انقر للتفاصيل والطلب</p>
                     </div>
                 </div>
+
                  <div class="card glass-card khafeyef hide" 
                      data-name="كوكتيل" 
                      data-price="150" 
@@ -197,6 +281,7 @@
                         <p class="click-hint"><i class="fa-solid fa-hand-pointer"></i> انقر للتفاصيل والطلب</p>
                     </div>
                 </div>
+
                  <div class="card glass-card khafeyef hide" 
                      data-name="بندورة و بصل" 
                      data-price="150" 
@@ -273,10 +358,10 @@
                     </div>
                 </div>
 
-  <div class="card glass-card pizza hide" 
+                <div class="card glass-card pizza hide" 
                      data-name="بيتزا ببروني" 
                      data-price="350" 
-                     data-img=".photo_4_2026-08-26_15-50-38.jpg"
+                     data-img="./images/photo_4_2026-08-26_15-50-38.jpg"
                      data-ingredients="ببروني، فطر، وزيتون مع جبنة الموزاريلا , فلفل, ذرة.">
                     <div class="card-img-wrapper">
                         <div class="card-img" style="background-image: url('./images/photo_4_2026-08-26_15-50-38.jpg');"></div>
@@ -303,9 +388,6 @@
                     </div>
                 </div>
 
- 
-                
-                
                 <div class="card glass-card pizza hide" 
                      data-name="بيتزا سجق" 
                      data-price="400" 
@@ -355,7 +437,7 @@
                 <!-- Cold Drinks Category -->
                 <div class="card glass-card cold hide" 
                      data-name="بيبسي" 
-                     data-price="60" 
+                     data-price="70" 
                      data-img="https://images.unsplash.com/photo-1629203851122-3726ecdf080e?auto=format&fit=crop&q=80&w=600"
                      data-ingredients="علبة بيبسي منعشة مثلجة (Pepsi Can 330ml).">
                     <div class="card-img-wrapper">
@@ -367,69 +449,68 @@
                         <p class="click-hint"><i class="fa-solid fa-hand-pointer"></i> انقر للتفاصيل والطلب</p>
                     </div>
                 </div>
-<!-- ميرندا -->
-<div class="card glass-card cold hide"
-     data-name="ميرندا" 
-     data-price="60" 
-     data-img="./images/MIRINDA SOFT DRINK 330ML_1.jpg"
-     data-ingredients="ميرندا منعشة مثلجة">
-    <div class="card-img-wrapper">
-        <div class="card-img" style="background-image: url('./images/MIRINDA SOFT DRINK 330ML_1.jpg');"></div>
-    </div>
-    <div class="card-info">
-        <h3>ميرندا (Mirinda)</h3>
-        <div class="price-tag">70,000 L.L</div>
-        <p class="click-hint"><i class="fa-solid fa-hand-pointer"></i> انقر للتفاصيل والطلب</p>
-    </div>
-</div>
 
-<!-- سفن اب -->
-<div class="card glass-card cold hide" 
-     data-name="سفن اب" 
-     data-price="60" 
-     data-img="./images/OIP.webp"
-     data-ingredients="سفن اب مثلج">
-    <div class="card-img-wrapper">
-        <div class="card-img" style="background-image: url('./images/OIP.webp');"></div>
-    </div>
-    <div class="card-info">
-        <h3>سفن اب (7Up)</h3>
-        <div class="price-tag">70,000 L.L</div>
-        <p class="click-hint"><i class="fa-solid fa-hand-pointer"></i> انقر للتفاصيل والطلب</p>
-    </div>
-</div>
+                <div class="card glass-card cold hide"
+                     data-name="ميرندا" 
+                     data-price="70" 
+                     data-img="./images/MIRINDA SOFT DRINK 330ML_1.jpg"
+                     data-ingredients="ميرندا منعشة مثلجة">
+                    <div class="card-img-wrapper">
+                        <div class="card-img" style="background-image: url('./images/MIRINDA SOFT DRINK 330ML_1.jpg');"></div>
+                    </div>
+                    <div class="card-info">
+                        <h3>ميرندا (Mirinda)</h3>
+                        <div class="price-tag">70,000 L.L</div>
+                        <p class="click-hint"><i class="fa-solid fa-hand-pointer"></i> انقر للتفاصيل والطلب</p>
+                    </div>
+                </div>
 
-<!-- قنينة ماء -->
-<div class="card glass-card cold hide" 
-     data-name="مياه معدنية" 
-     data-price="30" 
-     data-img="./images/OIP (1).webp"
-     data-ingredients="قنينة مياه معدنية نقية">
-    <div class="card-img-wrapper">
-        <div class="card-img" style="background-image: url('./images/OIP (1).webp');"></div>
-    </div>
-    <div class="card-info">
-        <h3>قنينة ماء</h3>
-        <div class="price-tag">30,000 L.L</div>
-        <p class="click-hint"><i class="fa-solid fa-hand-pointer"></i> انقر للتفاصيل والطلب</p>
-    </div>
-</div>
+                <div class="card glass-card cold hide" 
+                     data-name="سفن اب" 
+                     data-price="70" 
+                     data-img="./images/OIP.webp"
+                     data-ingredients="سفن اب مثلج">
+                    <div class="card-img-wrapper">
+                        <div class="card-img" style="background-image: url('./images/OIP.webp');"></div>
+                    </div>
+                    <div class="card-info">
+                        <h3>سفن اب (7Up)</h3>
+                        <div class="price-tag">70,000 L.L</div>
+                        <p class="click-hint"><i class="fa-solid fa-hand-pointer"></i> انقر للتفاصيل والطلب</p>
+                    </div>
+                </div>
 
-<!-- بونجوس هرم -->
-<div class="card glass-card cold hide" 
-     data-name="بونجوس هرم" 
-     data-price="30" 
-     data-img="./images/FB_IMG_1553080175935.jpg"
-     data-ingredients="عصير بونجوس هرم طيب ومنعش">
-    <div class="card-img-wrapper">
-        <div class="card-img" style="background-image: url('./images/FB_IMG_1553080175935.jpg');"></div>
-    </div>
-    <div class="card-info">
-        <h3>بونجوس هرم</h3>
-        <div class="price-tag">30,000 L.L</div>
-        <p class="click-hint"><i class="fa-solid fa-hand-pointer"></i> انقر للتفاصيل والطلب</p>
-    </div>
-</div>
+                <div class="card glass-card cold hide" 
+                     data-name="مياه معدنية" 
+                     data-price="30" 
+                     data-img="./images/OIP (1).webp"
+                     data-ingredients="قنينة مياه معدنية نقية">
+                    <div class="card-img-wrapper">
+                        <div class="card-img" style="background-image: url('./images/OIP (1).webp');"></div>
+                    </div>
+                    <div class="card-info">
+                        <h3>قنينة ماء</h3>
+                        <div class="price-tag">30,000 L.L</div>
+                        <p class="click-hint"><i class="fa-solid fa-hand-pointer"></i> انقر للتفاصيل والطلب</p>
+                    </div>
+                </div>
+
+                <div class="card glass-card cold hide" 
+                     data-name="بونجوس هرم" 
+                     data-price="30" 
+                     data-img="./images/FB_IMG_1553080175935.jpg"
+                     data-ingredients="عصير بونجوس هرم طيب ومنعش">
+                    <div class="card-img-wrapper">
+                        <div class="card-img" style="background-image: url('./images/FB_IMG_1553080175935.jpg');"></div>
+                    </div>
+                    <div class="card-info">
+                        <h3>بونجوس هرم</h3>
+                        <div class="price-tag">30,000 L.L</div>
+                        <p class="click-hint"><i class="fa-solid fa-hand-pointer"></i> انقر للتفاصيل والطلب</p>
+                    </div>
+                </div>
+
+            </div>
         </main>
 
         <!-- Sidebar (Cart, Timer & Contact) -->
@@ -466,32 +547,29 @@
                 </div>
             </div>
 
-            <div class="cart-card glass-sidebar">
+            <div class="cart-card glass-sidebar" id="dashboard">
                 <h2><i class="fa-solid fa-basket-shopping"></i> سلة الطلبات</h2>
                 <div id="cartItems" class="cart-items">
                     <p class="empty-msg">لم تقم بإضافة أي وجبة بعد</p>
                 </div>
-                <!-- قسم خيارات الدفع المرتبة -->
-<div class="checkout-section" style="margin-bottom: 15px; text-align: right;">
-    <h3 class="section-title" style="font-size: 0.95rem; color: #f39c12; margin-bottom: 8px; font-weight: bold;">
-        <i class="fa-solid fa-wallet"></i> طريقة الدفع
-    </h3>
-    <div class="payment-type-options" style="display: flex; gap: 10px;">
-        
-        <!-- زر الكاش (أخضر) -->
-        <label class="type-option cash-option active" style="flex: 1; display: flex; align-items: center; justify-content: center; gap: 6px; padding: 10px; background: rgba(255, 255, 255, 0.05); border: 2px solid rgba(255, 255, 255, 0.1); border-radius: 8px; color: #fff; cursor: pointer; transition: all 0.3s ease; font-weight: bold; font-size: 0.85rem;">
-            <input type="radio" name="paymentType" value="Cash 💵" checked style="display: none;">
-            <span>Cash 💵</span>
-        </label>
+                
+                <!-- Payment Options -->
+                <div class="checkout-section" style="margin-bottom: 15px; text-align: right;">
+                    <h3 class="section-title" style="font-size: 0.95rem; color: #f39c12; margin-bottom: 8px; font-weight: bold;">
+                        <i class="fa-solid fa-wallet"></i> طريقة الدفع
+                    </h3>
+                    <div class="payment-type-options" style="display: flex; gap: 10px;">
+                        <label class="type-option cash-option active" style="flex: 1; display: flex; align-items: center; justify-content: center; gap: 6px; padding: 10px; background: rgba(255, 255, 255, 0.05); border: 2px solid rgba(255, 255, 255, 0.1); border-radius: 8px; color: #fff; cursor: pointer; transition: all 0.3s ease; font-weight: bold; font-size: 0.85rem;">
+                            <input type="radio" name="paymentType" value="Cash 💵" checked style="display: none;">
+                            <span>Cash 💵</span>
+                        </label>
+                        <label class="type-option wish-option" style="flex: 1; display: flex; align-items: center; justify-content: center; gap: 6px; padding: 10px; background: rgba(255, 255, 255, 0.05); border: 2px solid rgba(255, 255, 255, 0.1); border-radius: 8px; color: #fff; cursor: pointer; transition: all 0.3s ease; font-weight: bold; font-size: 0.85rem;">
+                            <input type="radio" name="paymentType" value="Wish Money 💳" style="display: none;">
+                            <span>Wish Money 💳</span>
+                        </label>
+                    </div>
+                </div>
 
-        <!-- زر الويش موني (أحمر) -->
-        <label class="type-option wish-option" style="flex: 1; display: flex; align-items: center; justify-content: center; gap: 6px; padding: 10px; background: rgba(255, 255, 255, 0.05); border: 2px solid rgba(255, 255, 255, 0.1); border-radius: 8px; color: #fff; cursor: pointer; transition: all 0.3s ease; font-weight: bold; font-size: 0.85rem;">
-            <input type="radio" name="paymentType" value="Wish Money 💳" style="display: none;">
-            <span>Wish Money 💳</span>
-        </label>
-
-    </div>
-</div>
                 <div class="cart-total">
                     <span>المجموع الكلي:</span>
                     <strong id="totalPrice">0 L.L</strong>
@@ -501,7 +579,7 @@
                 </button>
             </div>
 
-            <div class="contact-card glass-sidebar">
+            <div class="contact-card glass-sidebar" id="contact">
                 <h2>الطلب السريع</h2>
                 <a href="https://wa.me/96181046949" class="whatsapp-btn" target="_blank">
                     <i class="fa-brands fa-whatsapp"></i>
@@ -512,7 +590,6 @@
                 </a>
             </div>
         </aside>
-        
     </div>
 
     <!-- Modal Popup Details Card with Customization (Remove Ingredients) -->
@@ -532,8 +609,7 @@
                         <!-- يتم تعبئتها ديناميكياً عبر الجافاسكريبت -->
                     </div>
                 </div>
-                 <div class="payment-type-options">
- 
+
                 <div class="modal-action-row" style="margin-top: 20px;">
                     <div class="quantity-controls big-controls">
                         <button class="btn-qty modal-minus"><i class="fa-solid fa-minus"></i></button>
@@ -547,6 +623,26 @@
             </div>
         </div>
     </div>
+
     <script src="script.js"></script>
+    <script>
+        const menuDropdownBtn = document.getElementById('menuDropdownBtn');
+        const dropdownMenu = document.getElementById('dropdownMenu');
+
+        menuDropdownBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            dropdownMenu.classList.toggle('show');
+        });
+
+        window.addEventListener('click', () => {
+            if (dropdownMenu.classList.contains('show')) {
+                dropdownMenu.classList.remove('show');
+            }
+        });
+
+        dropdownMenu.addEventListener('click', (e) => {
+            e.stopPropagation();
+        });
+    </script>
 </body>
 </html>
